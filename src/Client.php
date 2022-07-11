@@ -8,8 +8,8 @@ use GuzzleHttp\Client as BaseClient;
 use GuzzleHttp\Exception\GuzzleException;
 use InvalidArgumentException;
 use Psr\Http\Message\ResponseInterface;
-use function GuzzleHttp\Psr7\stream_for;
-
+use GuzzleHttp\Psr7\Utils;
+    
 class Client
 {
     const API_ENDPOINT_TRACK = 'https://track.customer.io/api/v1/';
@@ -230,7 +230,7 @@ class Client
      */
     private function handleResponse(ResponseInterface $response)
     {
-        $stream = stream_for($response->getBody());
+        $stream = Utils::streamFor($response->getBody());
 
         return json_decode($stream->getContents());
     }
